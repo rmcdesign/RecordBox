@@ -12,6 +12,7 @@ html, body {
 body {
   background: #ced0cd;
   background-size: 90%;
+  min-width: 800px;
 }
 
 .App {
