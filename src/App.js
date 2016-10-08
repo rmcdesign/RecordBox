@@ -22,6 +22,7 @@ class HangmanGame extends Component {
             alphabet: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h','i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's','t', 'u', 'v', 'w', 'x', 'y', 'z'],
             lives: 6,
             songTitle: this.props.answer,
+            showArtwork: this.props.showArtwork,
             result: this.displayResult()
         }
     }
@@ -57,12 +58,12 @@ class HangmanGame extends Component {
 
             titleArray.forEach(checkForMatch)
 
-            var is_same = (titleArray.length == resultArray.length) && titleArray.every(function(element, index) {
+            var is_same = (titleArray.length === resultArray.length) && titleArray.every(function(element, index) {
                 return element === resultArray[index];
             });
 
             if(is_same) {
-                alert('You won')
+                this.props.showArtwork()
             }
 
             this.setState({
@@ -109,14 +110,37 @@ class HangmanGame extends Component {
 
 class RecordHolder extends Component {
 
+    constructor(props) {
+        super(props)
+        this.state = {
+            showArtwork: false
+        }
+    }
+
+    showTheArtwork() {
+        this.setState({
+            showArtwork: true
+        })
+    }
+
     render() {
         return (
             <div className="record-holder">
                 <div className="record-sleeve">
-                    <HangmanGame answer={this.props.answer}/>
+                    <HangmanGame answer={this.props.answer} showArtwork={this.showTheArtwork.bind(this)}/>
                 </div>
                 <div className="vinyl"></div>
+                { this.state.showArtwork === true ? <RecordArtwork/> : ''}
             </div>
+        );
+    }
+}
+
+class RecordArtwork extends Component {
+
+    render() {
+        return (
+            <div className="record-artwork"></div>
         );
     }
 }
@@ -126,8 +150,8 @@ class App extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            audioSource: "http://thesixteendigital.com.s3.amazonaws.com/testfiles/Hallelujah.mp3",
-            gameAnswer: 'artist song title'
+            audioSource: "http://rmc-design.co.uk/media/disciples-daylight.mp3",
+            gameAnswer: 'disciples daylight'
         }
     }
 
