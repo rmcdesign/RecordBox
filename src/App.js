@@ -40,7 +40,7 @@ class HangmanGame extends Component {
             var title = this.state.songTitle;
             var titleArray = title.split("");
 
-            var incorrect = title.indexOf(letter) === -1 ? true : false
+            var incorrect = title.indexOf(letter) === -1
 
             var lives = this.state.lives
 
